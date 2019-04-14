@@ -30,7 +30,7 @@
  *
  */
 function getFizzBuzz(num) {
-    return ((num%3)?(num%5)?num:'Buzz':(num%5)?'Fizz':'FizzBuzz');
+    return ((num % 3) ? (num % 5) ? num : 'Buzz' : (num % 5) ? 'Fizz' : 'FizzBuzz');
 }
 
 
@@ -46,11 +46,11 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-        if(n==0) 
-         return 1;
-         return n* getFactorial(n-1);
-     }
-     
+    if (n == 0)
+        return 1;
+    return n * getFactorial(n - 1);
+}
+
 
 
 
@@ -67,10 +67,10 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    if(n2==n1) 
-    return n2;
-    return n1+getSumBetweenNumbers(n1+1,n2);
-  }
+    if (n2 == n1)
+        return n2;
+    return n1 + getSumBetweenNumbers(n1 + 1, n2);
+}
 
 
 
@@ -88,8 +88,8 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(a,b,c) {
-    return ((a<b+c && b<a+c && c<a+b)?true:false)
+function isTriangle(a, b, c) {
+    return ((a < b + c && b < a + c && c < a + b) ? true : false)
 }
 
 
@@ -157,7 +157,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    return ((circle.radius>Math.sqrt(Math.pow(point.x-circle.center.x,2)+Math.pow(point.y-circle.center.y,2)))?true:false)
+    return ((circle.radius > Math.sqrt(Math.pow(point.x - circle.center.x, 2) + Math.pow(point.y - circle.center.y, 2))) ? true : false)
 }
 
 
@@ -199,7 +199,20 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    if (isStartIncluded == true)
+        isStartIncluded = '[';
+    else if (isStartIncluded == false)
+        isStartIncluded = '(';
+    if (isEndIncluded == true)
+        isEndIncluded = ']';
+    else if (isEndIncluded == false)
+        isEndIncluded = ')';
+    if (a > b) {
+        var c = a;
+        a = b;
+        b = c;
+    }
+    return (isStartIncluded + a + ', ' + b + isEndIncluded);
 }
 
 
@@ -216,7 +229,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    return(str.split('').reverse().join(''))
+    return (str.split('').reverse().join(''))
 }
 
 
@@ -233,7 +246,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    return((num+'').split('').reverse().join(''))
+    return ((num + '').split('').reverse().join(''))
 }
 
 
@@ -450,15 +463,15 @@ module.exports = {
     doRectanglesOverlap: doRectanglesOverlap,
     isInsideCircle: isInsideCircle,
     findFirstSingleChar: findFirstSingleChar,
-    getIntervalString : getIntervalString,
+    getIntervalString: getIntervalString,
     reverseString: reverseString,
     reverseInteger: reverseInteger,
     isCreditCardNumber: isCreditCardNumber,
     getDigitalRoot: getDigitalRoot,
     isBracketsBalanced: isBracketsBalanced,
-    timespanToHumanString : timespanToHumanString,
+    timespanToHumanString: timespanToHumanString,
     toNaryString: toNaryString,
     getCommonDirectoryPath: getCommonDirectoryPath,
     getMatrixProduct: getMatrixProduct,
-    evaluateTicTacToePosition : evaluateTicTacToePosition
+    evaluateTicTacToePosition: evaluateTicTacToePosition
 };
