@@ -236,7 +236,6 @@ function toArrayOfSquares(arr) {
 function getMovingSum(arr) {
    throw new Error('Not implemented');
 }
-
 /**
  * Returns every second item from the specified array:
  * 
@@ -268,7 +267,18 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   throw new Error('Not implemented');
+   var arr2 = [];
+   function f(v, i) {
+      if (i == 0)
+         return arr2.push(v);
+      else {
+         arr2.push(v);
+         f(v, i - 1);
+      }
+
+   }
+   arr.map(f);
+   return arr2;
 }
 
 
@@ -537,7 +547,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-   throw new Error('Not implemented');     
+   throw new Error('Not implemented');
 }
 
 
