@@ -31,7 +31,7 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-   return (/([{])[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}([}])/)
+   return /\{[0-9 A-F]{8}(-[0-9 A-F]{4}){3}-[0-9 A-F]{12}\}/i;
 }
 
 
@@ -53,7 +53,7 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-   throw new Error('Not implemented');
+   throw new Error('Not implemented');//пересмотреть
 }
 
 
@@ -72,7 +72,7 @@ function getRegexForPitSpot() {
  * @return {RegExp}
  */
 function getRegexForIPv4() {
-   throw new Error('Not implemented');
+   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/;//ПЕРЕСМОТРЕТЬ
 }
 
 
@@ -116,7 +116,7 @@ function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 function getPasswordValidator(minLength) {
-   throw new Error('Not implemented');
+   new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*[\\s\\#%$!@\^&*()_+"№;:?=\/]).{' + minLength + ',}');//ПЕРЕСМОТРЕТЬ!!!
 }
 
 
