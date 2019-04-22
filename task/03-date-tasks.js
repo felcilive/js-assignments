@@ -77,14 +77,8 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
- var d=new Date();
- d.setHours(endDate.getHours()-startDate.getHours());
- d.setMinutes(endDate.getMinutes()-startDate.getMinutes());
- d.setSeconds((endDate.getSeconds()-startDate.getSeconds()));
- d.setMilliseconds((endDate.getMilliseconds()-startDate.getMilliseconds()));
-   if (d.getMilliseconds()==0) return (d.toLocaleTimeString()+'.'+'000');
-   else return (d.toLocaleTimeString()+'.'+d.getMilliseconds());
-
+let t = new Date(endDate.getTime() - startDate.getTime());
+return t.toISOString().slice(11, 23);//метод toISOString() возвращает расширенную версию, startDate.toISOString():2000-01-01T10:00:00.000Z
 }
 
 
@@ -102,7 +96,14 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-   throw new Error('Not implemented');
+   let min = date.getUTCMinutes();
+   let hour = date.getUTCHours() % 12; //перевод в 12 часовой пояс
+   let a = Math.abs(30 * hour - 5.5 * min);//Все вычисляется из формулы: угол=часовой угол-минутный угол;
+                                           //|0.5*(60*H+M-6*M)|==|0.5*(60*H+M-0.5*12*M)|==|0.5*(60*H-11M)|, где H-часы, М-минуты после 12
+   if (a > 180) {                          // продолжение формулы: если угол1 больше 180, то угол2=360-угол1            
+      a = 360 - a
+   }
+   return a * Math.PI / 180;
 }
 
 
