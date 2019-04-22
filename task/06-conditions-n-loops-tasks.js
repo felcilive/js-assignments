@@ -126,7 +126,10 @@ function isTriangle(a, b, c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+       if(rect1.width < rect2.top || rect1.height < rect2.left){
+        return false;
+     }
+     else return true;
 }
 
 
@@ -173,7 +176,14 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    let  i = 0, len = str.length;
+    for (; i < len; i++) {
+
+        if (str.indexOf(str[i]) === str.lastIndexOf(str[i])) {
+            return str[i]; 
+        }
+    }
+    return null;
 }
 
 
@@ -270,8 +280,22 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {//пересмотреть
+    let str = '' + ccn, res = 0;
+    let len = str.length,i=len;
+
+    for (; i > 0; i--) {
+
+        if (len % 2 != 0 && (i - 1) % 2 != 0 || len % 2 === 0 && (i - 1) % 2 === 0) {
+            if( str[i - 1] > 4){
+                res +=str[i - 1] * 2 - 9;
+            }
+            else{
+                res +=str[i - 1] * 2;
+            }
+        } else res += +str[i - 1];
+    }
+    return res % 10 === 0;
 }
 
 
@@ -315,8 +339,25 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true 
  */
-function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+function isBracketsBalanced(str) {//пересмотреть
+     let obj = {
+        "}": "{",    
+        "]": "[",
+        ")": "(",
+        ">": "<"
+        };
+        let b = true;
+        let arr = [];
+        let i = 0;
+    for( ; b && i < str.length; i++ ) {
+        if( obj[str[i]] ) {
+            b = ( arr.pop() === obj[str[i]] )
+        }
+        else {
+            arr.push(str[i])
+        }
+    }
+        return !arr.length && b;
 }
 
 
@@ -351,8 +392,48 @@ function isBracketsBalanced(str) {
  *   Date('2000-01-01 01:00:00.100'), Date('2015-01-02 03:00:05.000')  => '15 years ago'
  *
  */
-function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+function timespanToHumanString(startDate, endDate) {//пересмотреть
+    let difference = endDate.valueOf() - startDate.valueOf(),
+        min = Math.trunc(difference / 60000),
+        hour = difference / (3.6 * Math.pow(10, 6)),
+        day = difference / (86.4 * Math.pow(10, 6)),
+        result = '';
+
+    function getDecimal(num) {
+        return +(num - parseInt(num)).toFixed(8);
+    }
+
+    if (difference <= 45000) result += 'a few seconds ago';
+
+    if (difference > 45000 && difference <= 90000) result = 'a minute ago';
+
+    if (difference > 90000 && difference <= 2.7 * Math.pow(10, 6)) result = (min > 2 ? min : 2) + ' minutes ago';
+
+    if (difference > 2.7 * Math.pow(10, 6) && difference <= 5.4 * Math.pow(10, 6)) result = 'an hour ago';
+
+    if (difference > 5.4 * Math.pow(10, 6) && difference <= 7.92 * Math.pow(10, 7)) {
+        if (getDecimal(hour) <= 0.5) hour = Math.trunc(hour)
+        else hour = Math.round(hour);
+        result = (hour > 2 ? hour : 2) + ' hours ago';
+    }
+
+    if (difference > 7.92 * Math.pow(10, 7) && difference <= 1.296 * Math.pow(10, 8)) result = 'a day ago';
+
+    if (difference > 1.296 * Math.pow(10, 8) && difference <= 2.16 * Math.pow(10, 9)) {
+        if (getDecimal(day) <= 0.5) day = Math.trunc(day)
+        else day = Math.round(day);
+        result = (day > 2 ? day : 2) + ' days ago';
+    }
+
+    if (difference > 2.16 * Math.pow(10, 9) && difference <= 3.888 * Math.pow(10, 9)) result = 'a month ago';
+
+    if (difference > 3.888 * Math.pow(10, 9) && difference <= 2.981 * Math.pow(10, 10)) result = Math.round(difference / (2.592 * Math.pow(10, 9))) + ' months ago';
+
+    if (difference > 2.981 * Math.pow(10, 10) && difference <= 4.709 * Math.pow(10, 10)) result = 'a year ago';
+
+    if (difference > 4.709 * Math.pow(10, 10)) result = Math.round(difference / (3.1536 * Math.pow(10, 10))) + ' years ago';
+
+    return result;
 }
 
 
