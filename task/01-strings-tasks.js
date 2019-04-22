@@ -99,7 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    return (value.replace(/^\s*/,'').replace(/\s*$/,''));
+    return (value.trim());//удаляет все пробельные символы и табуляции в начале и в конце
 }
 
 /**
@@ -201,8 +201,11 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    var str='│'+' '.repeat(width-2)+'│\n';
-    return ('┌'+'─'.repeat(width-2)+'┐\n'+str.repeat(height-2)+'└'+'─'.repeat(width-2)+'┘\n');
+    let a,b,c;
+    a = '┌' + '─'.repeat(width - 2) + '┐\n';
+    b = '│' + ' '.repeat(width - 2) + '│\n';
+    c = '└' + '─'.repeat(width - 2) + '┘\n';
+    return a + b.repeat(height - 2) + c;
 }
 
 
@@ -222,7 +225,9 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    return (str.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}))
+    let after = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    let before = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    return str.replace(/[a-zA-Z]/g, (b) => after[before.indexOf(b)]);
 }
 
 /**
@@ -268,7 +273,11 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let card=['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+            'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+            'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+            'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    return card.indexOf(value);
 }
 
 
